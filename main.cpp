@@ -1,22 +1,25 @@
 #include <iostream>
-#include <cmath>
+#include <string>
 
 int main() {
-    int a;
-    int b;
-    a++;
-    std::cout << "Hello C++ learning environment!\n";
-    std::cout << "Enter a value for a: ";
-    std::cin >> a;
-    std::cout << "The value of a is: " << a << std::endl;
-    std::cout << "Enter a value for b: ";
-    std::cin >> b;
-    std::cout << "The value of b is: " << b << std::endl;
+    std::string name;
+    std::string birthDay;
+    std::string placeOfBirth;
 
-    int power = std::pow(a, b);
-    std::cout << a << " raised to the power of " << b << " is: " << power << std::endl;
+    std::cout << "Enter your name: ";
+    std::getline(std::cin >> std::ws, name);
 
-    
-    
+    std::cout << "Enter your birth day: ";
+    std::getline(std::cin >> std::ws, birthDay);
+
+    std::cout << "Enter your place of birth: ";
+    std::getline(std::cin >> std::ws, placeOfBirth);
+
+    std::cout << "=================PROFILE CARD==================" << std::endl;
+    std::cout << "| Name: " << name << "                            |" << std::endl;
+    std::cout << "| Birth Day: " << birthDay << "                        |" << std::endl;
+    std::cout << "| Place of Birth: " << placeOfBirth << "                   |" << std::endl;
+    std::cout << "===============================================" << std::endl;
+
     return 0;
 }
