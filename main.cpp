@@ -2,8 +2,9 @@
 
 int main() {
     int choice;
+    bool running = true;
 
-    while (true) {
+    while (running) {
         std::cout << "====================" << std::endl;
         std::cout << "1. Start" << std::endl;
         std::cout << "2. Options" << std::endl;
@@ -21,6 +22,7 @@ int main() {
                 break;
             case 3:
                 std::cout << "Quitting the game..." << std::endl;
+                running = false;
                 break;
             default:
                 std::cout << "Invalid option. Please try again." << std::endl;
