@@ -1,36 +1,47 @@
 #include <iostream>
+#include <iomanip>
+#include <string>
 
 int main() {
-    int choice;
-    bool running = true;
-
-    while (running) {
-        std::cout << "====================" << std::endl;
-        std::cout << "1. Start" << std::endl;
-        std::cout << "2. Options" << std::endl;
-        std::cout << "3. Quit" << std::endl;
-        std::cout << "====================" << std::endl;
-        std::cout << "Please select an option: ";
-        std::cin >> choice;
-
-        switch (choice) {
-            case 1:
-                std::cout << "Starting the game..." << std::endl;
-                break;
-            case 2:
-                std::cout << "Opening options..." << std::endl;
-                break;
-            case 3:
-                std::cout << "Quitting the game..." << std::endl;
-                running = false;
-                break;
-            default:
-                std::cout << "Invalid option. Please try again." << std::endl;
-                break;
-        }
-
-        std::cout << std::endl;
+    std::cout << "Enter the hero name: ";
+    std::string heroName;
+    std::cin >> heroName;
+    std::cout << "Enter the hero hp: ";
+    int heroHp;
+    while (!(std::cin >> heroHp)) {
+        std::cout << "Invalid input for HP\n";
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
     }
+    std::cout << "Enter the hero atk: ";
+    int heroAtk;
+    while (!(std::cin >> heroAtk)) {
+        std::cout << "Invalid input for ATK\n";
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+    }
+    std::cout << "Enter the hero speed: ";
+    double heroSpeed;
+    while (!(std::cin >> heroSpeed)) {
+        std::cout << "Invalid input for Speed\n";
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+    }
+    std::cout << "Is the hero has sword? (1 for yes, 0 for no): ";
+    bool hasSword;
+    while (!(std::cin >> hasSword)) {
+        std::cout << "Invalid input for sword status\n";
+        std::cin.clear();
+        std::cin.ignore(10000, '\n');
+    }
+    std::cout << "=================Hero Info=================" << std::endl;
+    std::cout << "Hero Name: " << heroName << std::endl;
+    std::cout << "Hero HP: " << heroHp << std::endl;
+    std::cout << "Hero ATK: " << heroAtk << std::endl;
+    std::cout << std::setprecision(10);
+    std::cout << "Hero Speed: " << heroSpeed << std::endl;
+    std::cout << "Hero has sword: " << (hasSword ? "Yes" : "No") << std::endl;
+
 
     return 0;
 }
