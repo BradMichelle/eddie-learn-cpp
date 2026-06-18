@@ -9,3 +9,10 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 set(CMAKE_BUILD_TYPE Debug)
 
 add_executable(cpp_learning main.cpp)
+
+# Add one executable per issue file
+file(GLOB ISSUE_SOURCES "issues/*.cpp")
+foreach(issue_src IN LISTS ISSUE_SOURCES)
+    get_filename_component(issue_name ${issue_src} NAME_WE)
+    add_executable(${issue_name} ${issue_src})
+endforeach()
