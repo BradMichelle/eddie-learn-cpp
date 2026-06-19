@@ -98,8 +98,28 @@ int main() {
     std::cout << "Distance default format: " << missionDistance << " km" << std::endl;
     std::cout << "Distance fixed format: " << std::fixed << std::setprecision(2) << missionDistance << " km" << std::endl;
     std::cout << "Distance scientific format: " << std::scientific << std::setprecision(6) << missionDistance << " km" << std::endl;
-    std::cout << "Estimated mission time: " << int(missionDistance / shipSpeed) << " seconds" << std::endl;
-    std::cout << "Estimated mission time: " << int(missionDistance / shipSpeed) / 3600 << " hours" << std::endl;
+
+    int totalSeconds = static_cast<int>(missionDistance / shipSpeed);
+    int days = totalSeconds / 86400;
+    int hours = totalSeconds % 86400 / 3600;
+    int minutes = totalSeconds % 3600 / 60;
+    int seconds = totalSeconds % 60;
+
+    std::cout << "Estimated mission time: ";
+    if (days > 0) {
+        std::cout << days << " Day" << (days == 1 ? "" : "s") << " ";
+    }
+    if (hours > 0) {
+        std::cout << hours << " Hour" << (hours == 1 ? "" : "s") << " ";
+    }
+    if (minutes > 0) {
+        std::cout << minutes << " Minute" << (minutes == 1 ? "" : "s") << " ";
+    }
+    if (seconds > 0 || (days == 0 && hours == 0 && minutes == 0)) {
+        std::cout << seconds << " Second" << (seconds == 1 ? "" : "s");
+    }
+    std::cout << std::endl;
+
     std::cout << "Mission status: " << (hasHelmet ? "READY" : "NOT READY") << std::endl;
 
     return 0;
