@@ -55,7 +55,7 @@ int main() {
         std::cin.ignore(10000, '\n');
         return 1;
     }
-    std::cout << "Please enter the astronaut ship speed in km/h: ";
+    std::cout << "Please enter the astronaut ship speed in km/s: ";
     float shipSpeed;
     while (!(std::cin >> shipSpeed && shipSpeed > 0)) {
         if (std::cin.fail()) {
@@ -82,7 +82,7 @@ int main() {
     std::cout << "Astronaut Height: " << astronautHeight << " m" << std::endl;
     std::cout << "Astronaut Weight: " << astronautWeight << " kg" << std::endl;
     std::cout << "Mission Distance: " << missionDistance << " km" << std::endl;
-    std::cout << "Ship Speed: " << shipSpeed << " km/h" << std::endl;
+    std::cout << "Ship Speed: " << shipSpeed << " km/s" << std::endl;
     std::cout << "Astronaut has helmet: " << (hasHelmet ? "Yes" : "No") << std::endl;
 
     std::cout << "=================Astronaut Report=================" << std::endl;
@@ -98,8 +98,8 @@ int main() {
     std::cout << "Distance default format: " << missionDistance << " km" << std::endl;
     std::cout << "Distance fixed format: " << std::fixed << std::setprecision(2) << missionDistance << " km" << std::endl;
     std::cout << "Distance scientific format: " << std::scientific << std::setprecision(6) << missionDistance << " km" << std::endl;
-    std::cout << "Estimated mission time: " << int(missionDistance / shipSpeed) * 3600 << " seconds" << std::endl;
-    std::cout << "Estimated mission time: " << int(missionDistance / shipSpeed) << " hours" << std::endl;
+    std::cout << "Estimated mission time: " << int(missionDistance / shipSpeed) << " seconds" << std::endl;
+    std::cout << "Estimated mission time: " << int(missionDistance / shipSpeed) / 3600 << " hours" << std::endl;
     std::cout << "Mission status: " << (hasHelmet ? "READY" : "NOT READY") << std::endl;
 
     return 0;
