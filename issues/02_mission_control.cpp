@@ -90,7 +90,7 @@ int main() {
     std::cout << "Mars weights the astronaut at " << std::fixed << std::setprecision(2) << astronautWeight * 0.38 << " kg\n";
     std::cout << "Astronaut BMI: " << std::fixed << std::setprecision(2) << astronautBMI << std::endl;
 
-    std::cout << "==================Mission Time==================" << std::endl;
+    std::cout << "==================Mission Status==================" << std::endl;
     std::cout << "Distance default format: " << std::defaultfloat << missionDistance << " km" << std::endl;
     std::cout << "Distance fixed format: " << std::fixed << std::setprecision(2) << missionDistance << " km" << std::endl;
     std::cout << "Distance scientific format: " << std::scientific << std::setprecision(6) << missionDistance << " km" << std::endl;
@@ -123,9 +123,65 @@ int main() {
     shipSpeed > 0 &&
     missionDistance > 0;
 
-    std::cout << "Mission status: "
-        << (isReady ? "READY" : "NOT READY")
-        << std::endl;
+    std::cout << "Mission status: ";
+    if (isReady) {
+        std::cout << "READY";
+    } else {
+        std::cout << "NOT READY BECAUSE ";
+        if (astronautAge < 12 && !hasHelmet && shipSpeed <= 0 && missionDistance <= 0) {
+            std::cout << "the astronaut is too young, doesn't have a helmet, the ship speed is not positive, and the mission distance is not positive.";
+        } else if (astronautAge < 12 && !hasHelmet && shipSpeed <= 0) {
+            std::cout << "the astronaut is too young, doesn't have a helmet, and the ship speed is not positive.";
+        } else if (astronautAge < 12 && !hasHelmet && missionDistance <= 0) {
+            std::cout << "the astronaut is too young, doesn't have a helmet, and the mission distance is not positive.";
+        } else if (astronautAge < 12 && shipSpeed <= 0 && missionDistance <= 0) {
+            std::cout << "the astronaut is too young, the ship speed is not positive, and the mission distance is not positive.";
+        } else if (!hasHelmet && shipSpeed <= 0 && missionDistance <= 0) {
+            std::cout << "the astronaut doesn't have a helmet, the ship speed is not positive, and the mission distance is not positive.";
+        } else if (astronautAge < 12 && !hasHelmet) {
+            std::cout << "the astronaut is too young and doesn't have a helmet.";
+        } else if (astronautAge < 12 && shipSpeed <= 0) {
+            std::cout << "the astronaut is too young and the ship speed is not positive.";
+        } else if (astronautAge < 12 && missionDistance <= 0) {
+            std::cout << "the astronaut is too young and the mission distance is not positive.";
+        } else if (!hasHelmet && shipSpeed <= 0) {
+            std::cout << "the astronaut doesn't have a helmet and the ship speed is not positive.";
+        } else if (!hasHelmet && missionDistance <= 0) {
+            std::cout << "the astronaut doesn't have a helmet and the mission distance is not positive.";
+        } else if (shipSpeed <= 0 && missionDistance <= 0) {
+            std::cout << "the ship speed is not positive and the mission distance is not positive.";
+        } else if (astronautAge < 12) {
+            std::cout << "the astronaut is too young.";
+        } else if (!hasHelmet) {
+            std::cout << "the astronaut doesn't have a helmet.";
+        } else if (shipSpeed <= 0) {
+            std::cout << "the ship speed is not positive.";
+        } else if (missionDistance <= 0) {
+            std::cout << "the mission distance is not positive.";
+        }
+    }
+
+    std::cout << "Comment about BMI: " << std::endl;
+    if (astronautBMI < 15.0) {
+        std::cout << "Too light, the astronaut may need to gain some weight for the mission." << std::endl;
+    } else if (15 <= astronautBMI && astronautBMI < 18.5) {
+        std::cout << "Underweight, the astronaut may need to gain some weight for the mission." << std::endl;
+    } else if (18.5 <= astronautBMI && astronautBMI < 25.0) {
+        std::cout << "Normal weight, the astronaut is in good shape for the mission." << std::endl;
+    } else if (25.0 <= astronautBMI && astronautBMI < 30.0) {
+        std::cout << "Overweight, the astronaut may need to lose some weight for the mission." << std::endl;
+    } else {
+        std::cout << "Obese, the astronaut may need to lose a significant amount of weight for the mission." << std::endl;
+    }
+
+    std::cout << "Comment about time Hours: " << std::endl;
+    if (hours < 1) {
+        std::cout << "The mission is very short, the astronaut may need to prepare for a longer mission." << std::endl;
+    } else if (1 <= hours && hours < 24) {
+        std::cout << "The mission is of moderate length, the astronaut should be prepared for the mission." << std::endl;
+    } else {
+        std::cout << "The mission is long, the astronaut should be well-prepared for the mission." << std::endl;
+    }
 
     return 0;
 }
