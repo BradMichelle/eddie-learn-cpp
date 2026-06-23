@@ -21,54 +21,46 @@ int main() {
 
     std::cout << "Oxygen level: " << std::endl;
     double oxygenLevel;
-    while (!(std::cin >> oxygenLevel)) {
-        std::cout << "Invalid input for oxygen level\n";
+    while (!(std::cin >> oxygenLevel) || oxygenLevel < 0.0 || oxygenLevel > 100.0) {
+        std::cout << "Invalid input for oxygen level. Please enter a value between 0 and 100.\n";
         std::cin.clear();
         std::cin.ignore(10000, '\n');
-        std::cout << "Oxygen level: " << std::endl;
     }
 
     std::cout << "Battery level: " << std::endl;
     int batteryLevel;
-    while (!(std::cin >> batteryLevel)) {
-        std::cout << "Invalid input for battery level\n";
+    while (!(std::cin >> batteryLevel) || batteryLevel < 0 || batteryLevel > 100) {
+        std::cout << "Invalid input for battery level. Please enter a value between 0 and 100.\n";
         std::cin.clear();
         std::cin.ignore(10000, '\n');
     }
 
-    bool canEnter = age >= 12 && hasHelmet && oxygenLevel > 80.0 && batteryLevel > 20;
+    bool canEnter =
+        age >= 12 &&
+        hasHelmet &&
+        oxygenLevel >= 80.0 &&
+        batteryLevel >= 50;
+
     if (canEnter) {
         std::cout << "Access granted!" << std::endl;
     } else {
         std::cout << "Access denied." << std::endl;
-        if (age < 12 && !hasHelmet && oxygenLevel <= 80.0 && batteryLevel <= 20) {
-            std::cout << "You are too young, don't have a helmet, your oxygen level is too low, and your battery level is too low." << std::endl;
-        } else if (age < 12 && !hasHelmet && batteryLevel <= 20) {
-            std::cout << "You are too young, don't have a helmet, and your battery level is too low." << std::endl;
-        } else if (age < 12 && oxygenLevel <= 80.0 && batteryLevel <= 20) {
-            std::cout << "You are too young, your oxygen level is too low, and your battery level is too low." << std::endl;
-        } else if (!hasHelmet && oxygenLevel <= 80.0 && batteryLevel <= 20) {
-            std::cout << "You don't have a helmet, your oxygen level is too low, and your battery level is too low." << std::endl;
-        } else if (age < 12 && !hasHelmet) {
-            std::cout << "You are too young and don't have a helmet." << std::endl;
-        } else if (age < 12 && oxygenLevel <= 80.0) {
-            std::cout << "You are too young and your oxygen level is too low." << std::endl;
-        } else if (!hasHelmet && oxygenLevel <= 80.0) {
-            std::cout << "You don't have a helmet and your oxygen level is too low." << std::endl;
-        } else if (age < 12 && batteryLevel <= 20) {
-            std::cout << "You are too young and your battery level is too low." << std::endl;
-        } else if (!hasHelmet && batteryLevel <= 20) {
-            std::cout << "You don't have a helmet and your battery level is too low." << std::endl;
-        } else if (oxygenLevel <= 80.0 && batteryLevel <= 20) {
-            std::cout << "Your oxygen level is too low and your battery level is too low." << std::endl;
-        } else if (age < 12) {
-            std::cout << "You are too young." << std::endl;
-        } else if (!hasHelmet) {
-            std::cout << "You don't have a helmet." << std::endl;
-        } else if (oxygenLevel <= 80.0) {
-            std::cout << "Your oxygen level is too low." << std::endl;
-        } else if (batteryLevel <= 20) {
-            std::cout << "Your battery level is too low." << std::endl;
+        std::cout << "Reasons:" << std::endl;
+
+        if (age < 12) {
+            std::cout << "- Too young" << std::endl;
+        }
+
+        if (!hasHelmet) {
+            std::cout << "- Helmet required" << std::endl;
+        }
+
+        if (oxygenLevel < 80.0) {
+            std::cout << "- Oxygen too low" << std::endl;
+        }
+
+        if (batteryLevel < 50) {
+            std::cout << "- Battery too low" << std::endl;
         }
     }
 
