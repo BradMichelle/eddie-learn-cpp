@@ -8,7 +8,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O0")
 set(CMAKE_BUILD_TYPE Debug)
 
-add_executable(cpp_learning main.cpp)
+# Optional sample executable if main.cpp exists
+if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
+    add_executable(cpp_learning main.cpp)
+endif()
 
 # Add one executable per issue file
 file(GLOB ISSUE_SOURCES "issues/*.cpp")
