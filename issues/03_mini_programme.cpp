@@ -1,7 +1,13 @@
 #include <iostream>
+#include <string>
 
 int main() {
     std::cout << "Welcome to the Mini Programme!" << std::endl;
+
+    std::cout << "Please enter your name: ";
+    std::string name;
+    std::cin >> name;
+
     std::cout << "Please enter your age: " << std::endl;
     int age;
     while (!(std::cin >> age) || age < 0 || age > 120) {
@@ -18,7 +24,7 @@ int main() {
         std::cin.clear();
         std::cin.ignore(10000, '\n');
     }
-    
+
     bool hasHelmet = helmetInput == 1;
 
     std::cout << "Oxygen level: " << std::endl;
@@ -45,6 +51,7 @@ int main() {
 
     if (canEnter) {
         std::cout << "Access granted!" << std::endl;
+        std::cout << "Welcome, " << name << "." << std::endl;
     } else {
         std::cout << "Access denied." << std::endl;
         std::cout << "Reasons:" << std::endl;
