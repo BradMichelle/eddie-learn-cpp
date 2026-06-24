@@ -49,6 +49,11 @@ int main() {
             std::cout << "Round result: PASS" << std::endl;
             ++passedRounds;
             totalScore += 10;
+            if (oxygenLevel >= 95.0 && batteryLevel >= 90) {
+                std::cout << "Excellent round! Bonus +5." << std::endl;
+                totalScore += 5;
+            }
+
         } else {
             std::cout << "Round result: FAIL" << std::endl;
             std::cout << "Reasons:" << std::endl;
