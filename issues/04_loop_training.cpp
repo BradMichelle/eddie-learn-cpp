@@ -17,8 +17,8 @@ int main() {
 
     std::cout << "Enter the training rounds (1-10): ";
     int trainingRounds;
-    while (!(std::cin >> trainingRounds) || trainingRounds < 0 || trainingRounds > 10) {
-        std::cout << "Invalid age. Enter training rounds from 0 to 10: ";
+    while (!(std::cin >> trainingRounds) || trainingRounds < 1 || trainingRounds > 10) {
+        std::cout << "Invalid age. Enter training rounds from 1 to 10: ";
         std::cin.clear();
         std::cin.ignore(10000, '\n');
     }
@@ -49,19 +49,20 @@ int main() {
             std::cout << "Round result: PASS" << std::endl;
             ++passedRounds;
             totalScore += 10;
-        } else if (!(oxygenLevel >= 80 && batteryLevel >= 50)) {
+        } else {
             std::cout << "Round result: FAIL" << std::endl;
             std::cout << "Reasons:" << std::endl;
             if (oxygenLevel < 80) {
                 std::cout << "- Oxygen level is too low" << std::endl;
-            } else if (batteryLevel < 50) {
-                std::cout << "- Battery level is too low" << std:: endl;
+            }
+            if (batteryLevel < 50) {
+                std::cout << "- Battery level is too low" << std::endl;
             }
             ++failedRounds;
         }
     }
 
-    std::cout << "=====Training Report=====";
+    std::cout << "=====Training Report=====" << std::endl;
     std::cout << "Name: " << name << std::endl;
     std::cout << "Age: " << age << std::endl;
     std::cout << "Rounds: " << trainingRounds << std::endl;
