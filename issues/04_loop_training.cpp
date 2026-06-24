@@ -65,6 +65,10 @@ int main() {
             }
             ++failedRounds;
         }
+        if (failedRounds >= 3) {
+            std::cout << "Training stopped early. Too many failed rounds." << std::endl;
+            break;
+        }
     }
 
     std::cout << "=====Training Report=====" << std::endl;
@@ -74,6 +78,18 @@ int main() {
     std::cout << "Passed rounds: " << passedRounds << std::endl;
     std::cout << "Failed rounds: " << failedRounds << std::endl;
     std::cout << "Total score: " << totalScore << std::endl;
+
+    std::cout << "=====Final Rating=====";
+    int maxScore = trainingRounds * 15;
+    if (totalScore >= maxScore * 1.1) {
+        std::cout << "Rating: Super Duper!";
+    } else if (totalScore >= maxScore * 0.8) {
+        std::cout << "Rating: Excellent!" << std::endl;
+    } else if (totalScore >= maxScore * 0.5) {
+        std::cout << "Rating: Good!" << std::endl;
+    } else {
+        std::cout << "Rating: Need more training." << std::endl;
+    }
 
     return 0;
 }
