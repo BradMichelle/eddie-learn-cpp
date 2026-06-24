@@ -1,23 +1,31 @@
 #include <iostream>
+#include <string>
 
 int main() {
     std::cout << "Welcome to the Mini Programme!" << std::endl;
+
+    std::cout << "Please enter your name: ";
+    std::string name;
+    std::cin >> name;
+
     std::cout << "Please enter your age: " << std::endl;
     int age;
-    while (!(std::cin >> age)) {
-        std::cout << "Invalid input for age\n";
+    while (!(std::cin >> age) || age < 0 || age > 120) {
+        std::cout << "Invalid input for age. Please enter a value between 0 and 120.\n";
         std::cin.clear();
         std::cin.ignore(10000, '\n');
     }
 
     std::cout << "Do you have a helmet? (1 for yes, 0 for no): " << std::endl;
-    bool hasHelmet;
-    while (!(std::cin >> hasHelmet)) {
-        std::cout << "Invalid input for helmet status\n";
+    int helmetInput;
+
+    while (!(std::cin >> helmetInput) || (helmetInput != 0 && helmetInput != 1)) {
+        std::cout << "Invalid helmet input. Enter 1 for yes, 0 for no: ";
         std::cin.clear();
         std::cin.ignore(10000, '\n');
-        std::cout << "Do you have a helmet? (1 for yes, 0 for no): " << std::endl;
     }
+
+    bool hasHelmet = helmetInput == 1;
 
     std::cout << "Oxygen level: " << std::endl;
     double oxygenLevel;
@@ -43,6 +51,7 @@ int main() {
 
     if (canEnter) {
         std::cout << "Access granted!" << std::endl;
+        std::cout << "Welcome, " << name << "." << std::endl;
     } else {
         std::cout << "Access denied." << std::endl;
         std::cout << "Reasons:" << std::endl;
