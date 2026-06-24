@@ -79,8 +79,8 @@ int main() {
     std::cout << "Failed rounds: " << failedRounds << std::endl;
     std::cout << "Total score: " << totalScore << std::endl;
 
-    std::cout << "=====Final Rating=====";
-    int maxScore = trainingRounds * 15;
+    std::cout << "=====Final Rating=====" << std::endl;
+    int maxScore = trainingRounds * 10;
     if (totalScore >= maxScore * 1.1) {
         std::cout << "Rating: Super Duper!";
     } else if (totalScore >= maxScore * 0.8) {
