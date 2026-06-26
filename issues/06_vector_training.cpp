@@ -143,7 +143,7 @@ int main() {
         batteryHistory.push_back(batteryLevel);
         scoreHistory.push_back(roundScore);
 
-        if (roundScore > 0) {
+        if (isRoundPassed(oxygenLevel, batteryLevel)) {
             std::cout << "Round result: PASS" << std::endl;
         } else {
             std::cout << "Round result: FAIL" << std::endl;
