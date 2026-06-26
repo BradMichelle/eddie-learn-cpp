@@ -88,7 +88,10 @@ int main() {
     int failedRounds = 0;
     int totalScore = 0;
 
+    int completedRounds = 0;
+
     for(int i = 1; i <= trainingRounds; ++i) {
+        completedRounds++;
         std::cout << "Round " << i << std::endl;
         double oxygenLevel = readDoubleInRange("Enter oxygen level (0-100): ", 0, 100);
 
@@ -121,7 +124,7 @@ int main() {
     std::cout << "=====Training Report=====" << std::endl;
     std::cout << "Name: " << name << std::endl;
     std::cout << "Age: " << age << std::endl;
-    std::cout << "Rounds: " << trainingRounds << std::endl;
+    std::cout << "Planned rounds: " << trainingRounds << std::endl;
     std::cout << "Passed rounds: " << passedRounds << std::endl;
     std::cout << "Failed rounds: " << failedRounds << std::endl;
     std::cout << "Total score: " << totalScore << std::endl;
