@@ -125,12 +125,13 @@ int main() {
     std::cout << "Name: " << name << std::endl;
     std::cout << "Age: " << age << std::endl;
     std::cout << "Planned rounds: " << trainingRounds << std::endl;
+    std::cout << "Completed rounds: " << completedRounds << std::endl;
     std::cout << "Passed rounds: " << passedRounds << std::endl;
     std::cout << "Failed rounds: " << failedRounds << std::endl;
     std::cout << "Total score: " << totalScore << std::endl;
 
-    int maxScore = trainingRounds * 10;
+    int maxScore = completedRounds * 10;
     printFinalRating(totalScore, maxScore);
-
+    
     return 0;
 }
