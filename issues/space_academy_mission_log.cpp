@@ -221,7 +221,7 @@ void printMissionHistory(
 ) {
     std::cout << "===== Mission History =====" << std::endl;
 
-    for (int i = 0; i < scoreHistory.size(); i++) {
+    for (std::size_t i = 0; i < scoreHistory.size(); i++) {
         std::cout << "Mission " << i + 1
                   << " | Name: " << missionNames[i]
                   << " | Oxygen: " << oxygenHistory[i]
@@ -315,7 +315,8 @@ int main() {
     int bestScore = findBestScore(scoreHistory);
     int worstScore = findWorstScore(scoreHistory);
     int successCount = countSuccessMissions(successHistory);
-    int failCount = missionCount - successCount;
+    int completedMissions = scoreHistory.size();
+    int failCount = completedMissions - successCount;
 
     std::cout << std::endl;
     std::cout << "===== Final Report =====" << std::endl;
