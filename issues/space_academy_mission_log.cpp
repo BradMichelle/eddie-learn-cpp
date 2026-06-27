@@ -5,11 +5,10 @@
 int readIntInRange(std::string prompt, int minValue, int maxValue) {
     int value;
 
-    std::cout << prompt << std::endl;
-    while(!(std::cin >> value), value < minValue, value > maxValue) {
-        std::cout << "Invalid value. Please enter a value from " << minValue 
-                                                                 << " to " << maxValue << "."
-                                                                 << std::endl;
+    std::cout << prompt;
+    while (!(std::cin >> value) || value < minValue || value > maxValue) {
+        std::cout << "Invalid value. Please enter a value from "
+                  << minValue << " to " << maxValue << ": ";
         std::cin.clear();
         std::cin.ignore(10000, '\n');
     }
@@ -20,11 +19,10 @@ int readIntInRange(std::string prompt, int minValue, int maxValue) {
 double readDoubleInRange(std::string prompt, double minValue, double maxValue) {
     double value;
 
-    std::cout << prompt << std::endl;
-    while(!(std::cin >> value), value < minValue, value > maxValue) {
-        std::cout << "Invalid value. Please enter a value from " << minValue 
-                                                                 << " to " << maxValue << ": "
-                                                                 << std::endl;
+    std::cout << prompt;
+    while (!(std::cin >> value) || value < minValue || value > maxValue) {
+        std::cout << "Invalid value. Please enter a value from "
+                  << minValue << " to " << maxValue << ": ";
         std::cin.clear();
         std::cin.ignore(10000, '\n');
     }
@@ -33,16 +31,16 @@ double readDoubleInRange(std::string prompt, double minValue, double maxValue) {
 }
 
 bool readYesNo(std::string prompt) {
-    bool value;
-    
-    std::cout << prompt << std::endl;
-    while(!(std::cin >> value)) {
-        std::cout << "Invalid value. Please enter a value from 0 to 1 (1 for yes, 0 for no): " << std::endl;
+    int value;
+
+    std::cout << prompt << "Enter 1 for yes, 0 for no: ";
+    while (!(std::cin >> value) || (value != 0 && value != 1)) {
+        std::cout << "Invalid value. Enter 1 for yes, 0 for no: ";
         std::cin.clear();
         std::cin.ignore(10000, '\n');
     }
 
-    return value;
+    return value == 1;
 }
 
 bool isMissionSuccess(
@@ -118,10 +116,12 @@ int calculateMissionScore(
     return score;
 }
 
-void printFailReasons(double oxygenLevel, 
-                      int batteryLevel,
-                      int dangerLevel,
-                      bool hasShield
+void printFailReasons(
+    double oxygenLevel,
+    int batteryLevel,
+    double distanceToTarget,
+    int dangerLevel,
+    bool hasShield
 ) {
     std::cout << "Reasons:" << std::endl;
 
@@ -133,8 +133,16 @@ void printFailReasons(double oxygenLevel,
         std::cout << "- Battery level is too low" << std::endl;
     }
 
-    if (dangerLevel > 5 && hasShield == false) {
-        std::cout << "- Too dangerous";
+    if (distanceToTarget > 1000.0) {
+        std::cout << "- Target is too far" << std::endl;
+    }
+
+    if (dangerLevel > 7) {
+        std::cout << "- Danger level is too high" << std::endl;
+    }
+
+    if (dangerLevel > 5 && !hasShield) {
+        std::cout << "- Shield required for high danger mission" << std::endl;
     }
 }
 
@@ -211,19 +219,21 @@ void printMissionHistory(
     std::vector<int> scoreHistory,
     std::vector<bool> successHistory
 ) {
+    std::cout << "===== Mission History =====" << std::endl;
+
     for (int i = 0; i < scoreHistory.size(); i++) {
-    std::cout << "=====Mission History=====";
-    std::cout << "Mission " << i + 1
-              << " | Name: " << missionNames[i]
-              << " | Oxygen: " << oxygenHistory[i]
-              << " | Battery: " << batteryHistory[i]
-              << " | Distance: " << distanceHistory[i]
-              << " | Danger: " << dangerHistory[i]
-              << " | Shield: " << (shieldHistory[i] ? "Yes" : "No")
-              << " | Result: " << (successHistory[i] ? "SUCCESS" : "FAIL")
-              << " | Score: " << scoreHistory[i]
-              << std::endl;
+        std::cout << "Mission " << i + 1
+                  << " | Name: " << missionNames[i]
+                  << " | Oxygen: " << oxygenHistory[i]
+                  << " | Battery: " << batteryHistory[i]
+                  << " | Distance: " << distanceHistory[i]
+                  << " | Danger: " << dangerHistory[i]
+                  << " | Shield: " << (shieldHistory[i] ? "Yes" : "No")
+                  << " | Result: " << (successHistory[i] ? "SUCCESS" : "FAIL")
+                  << " | Score: " << scoreHistory[i]
+                  << std::endl;
     }
+
 }
 
 int main() {
@@ -287,7 +297,14 @@ int main() {
             std::cout << "Mission result: SUCCESS" << std::endl;
         } else {
             std::cout << "Mission result: FAIL" << std::endl;
-            printFailReasons(oxygenLevel, batteryLevel, dangerLevel, hasShield);
+            printFailReasons(
+                oxygenLevel,
+                batteryLevel,
+                distanceToTarget,
+                dangerLevel,
+                hasShield
+            );
+
         }
 
         std::cout << "Mission score: " << score << std::endl;
