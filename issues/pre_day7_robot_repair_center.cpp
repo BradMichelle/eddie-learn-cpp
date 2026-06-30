@@ -129,7 +129,7 @@ int countRobotsNeedingRepair(std::vector<int> damageLevels) {
     int count = 0;
 
     for(int i = 0; i < damageLevels.size(); ++i) {
-        if(damageLevels[i] > 0) {
+        if (needsRepair(damageLevels[i])) {
             ++count;
         }
     }
@@ -160,10 +160,9 @@ int countUrgentRobots(
     int count = 0;
 
     for(int i = 0; i < criticalFlags.size(); ++i) {
-        if((criticalFlags[i] == true && damageLevels[i] >= 50) ||
-          (batteryLevels[i] < 20 && damageLevels[i] >= 40)) {
+        if (isUrgentRepair(batteryLevels[i], damageLevels[i], criticalFlags[i])) {
             ++count;
-          }
+        }
     }
 
     return count;
