@@ -5,38 +5,72 @@
 int readIntInRange(std::string prompt, int minValue, int maxValue) {
     int value;
 
-    std::cout << prompt;
-    while(!(value) && value < minValue && value > maxValue) {
-        std::cout << "Invalid value. Please enter a value between " << minValue
-                                                                    << " and " << maxValue
-                                                                    << std::endl;
-    }
+    while (true) {
+        std::cout << prompt;
 
-    return value;
+        if (!(std::cin >> value)) {
+            std::cout << "Invalid input. Please enter an integer." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            continue;
+        }
+
+        if (value < minValue || value > maxValue) {
+            std::cout << "Invalid value. Please enter a value between "
+                      << minValue << " and " << maxValue << std::endl;
+            continue;
+        }
+
+        return value;
+    }
 }
 
 double readDoubleInRange(std::string prompt, double minValue, double maxValue) {
     double value;
 
-    std::cout << prompt;
-    while(!(value) && value < minValue && value > maxValue) {
-        std::cout << "Invalid value. Please enter a value between " << minValue
-                                                                    << " and " << maxValue
-                                                                    << std::endl;
-    }
+    while (true) {
+        std::cout << prompt;
 
-    return value;
+        if (!(std::cin >> value)) {
+            std::cout << "Invalid input. Please enter a number." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            continue;
+        }
+
+        if (value < minValue || value > maxValue) {
+            std::cout << "Invalid value. Please enter a value between "
+                      << minValue << " and " << maxValue << std::endl;
+            continue;
+        }
+
+        return value;
+    }
 }
 
 bool readYesNo(std::string prompt) {
-    bool value;
+    int value;
 
-    std::cout << prompt;
-    while(!(value) && value < 0 && value > 1) {
-        std::cout << "Invalid value. Please enter a value between 0 and 1. (1 for yes, 0 for no): " << std::endl;
+    while (true) {
+        std::cout << prompt << " (1 = yes, 0 = no): ";
+
+        if (!(std::cin >> value)) {
+            std::cout << "Invalid input. Enter 1 for yes or 0 for no." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            continue;
+        }
+
+        if (value == 1) {
+            return true;
+        }
+
+        if (value == 0) {
+            return false;
+        }
+
+        std::cout << "Please enter 1 or 0." << std::endl;
     }
-    
-    return value;
 }
 
 double calculateRepairCost(int damageLevel, double repairCostPerPoint) {
@@ -92,7 +126,7 @@ double calculateTotalRepairCost(std::vector<double> totalRepairCosts) {
 }
 
 int countRobotsNeedingRepair(std::vector<int> damageLevels) {
-    int count;
+    int count = 0;
 
     for(int i = 0; i < damageLevels.size(); ++i) {
         if(damageLevels[i] > 0) {
@@ -107,10 +141,10 @@ int countDangerousRobots(
     std::vector<int> batteryLevels,
     std::vector<int> damageLevels
 ) {
-    int count;
+    int count = 0;
 
-    for(int i = 0; i < damageLevels.size(); ++i) {
-        if(batteryLevels[i] < 30 && damageLevels[i] > 70) {
+    for (int i = 0; i < damageLevels.size(); ++i) {
+        if (isRobotDangerous(batteryLevels[i], damageLevels[i])) {
             ++count;
         }
     }
@@ -123,7 +157,7 @@ int countUrgentRobots(
     std::vector<int> damageLevels,
     std::vector<bool> criticalFlags
 ) {
-    int count;
+    int count = 0;
 
     for(int i = 0; i < criticalFlags.size(); ++i) {
         if((criticalFlags[i] == true && damageLevels[i] >= 50) ||
@@ -136,15 +170,21 @@ int countUrgentRobots(
 }
 
 int findHighestPriorityRobotIndex(std::vector<int> priorityScores) {
-    int find = priorityScores[0];
+    if (priorityScores.size() == 0) {
+        return -1;
+    }
 
-    for(int i = 0; i < priorityScores.size(); ++i) {
-        if(priorityScores[i] > find) {
-            find = priorityScores[i];
+    int bestIndex = 0;
+    int bestScore = priorityScores[0];
+
+    for (int i = 1; i < priorityScores.size(); ++i) {
+        if (priorityScores[i] > bestScore) {
+            bestScore = priorityScores[i];
+            bestIndex = i;
         }
     }
 
-    return find;
+    return bestIndex;
 }
 
 void printRobotReport(
