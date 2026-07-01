@@ -102,19 +102,19 @@ Robot readRobot(int robotNumber) {
     return robot;
 }
 
-double calculateRepairCost(Robot robot) {
+double calculateRepairCost(const Robot& robot) {
     return robot.damageLevel * robot.repairCostPerPoint;
 }
 
-bool needsRepair(Robot robot) {
+bool needsRepair(const Robot& robot) {
     return robot.damageLevel > 0;
 }
 
-bool isRobotDangerous(Robot robot) {
+bool isRobotDangerous(const Robot& robot) {
     return robot.batteryLevel < 30 || robot.damageLevel > 70;
 }
 
-bool isUrgentRepair(Robot robot) {
+bool isUrgentRepair(const Robot& robot) {
     if (robot.isCritical && robot.damageLevel >= 50) {
         return true;
     }
@@ -126,7 +126,7 @@ bool isUrgentRepair(Robot robot) {
     return false;
 }
 
-int calculatePriorityScore(Robot robot) {
+int calculatePriorityScore(const Robot& robot) {
     int priority = robot.damageLevel;
 
     if (robot.batteryLevel < 30) {
@@ -144,20 +144,20 @@ int calculatePriorityScore(Robot robot) {
     return priority;
 }
 
-double calculateTotalRepairCost(std::vector<Robot> robots) {
+double calculateTotalRepairCost(const std::vector<Robot>& robots) {
     double total = 0.0;
 
-    for (Robot robot : robots) {
+    for (const Robot& robot : robots) {
         total += calculateRepairCost(robot);
     }
 
     return total;
 }
 
-int countRobotsNeedingRepair(std::vector<Robot> robots) {
+int countRobotsNeedingRepair(const std::vector<Robot>& robots) {
     int count = 0;
 
-    for (Robot robot : robots) {
+    for (const Robot& robot : robots) {
         if (needsRepair(robot)) {
             count++;
         }
@@ -166,10 +166,10 @@ int countRobotsNeedingRepair(std::vector<Robot> robots) {
     return count;
 }
 
-int countDangerousRobots(std::vector<Robot> robots) {
+int countDangerousRobots(const std::vector<Robot>& robots) {
     int count = 0;
 
-    for (Robot robot : robots) {
+    for (const Robot& robot : robots) {
         if (isRobotDangerous(robot)) {
             count++;
         }
@@ -178,10 +178,10 @@ int countDangerousRobots(std::vector<Robot> robots) {
     return count;
 }
 
-int countUrgentRobots(std::vector<Robot> robots) {
+int countUrgentRobots(const std::vector<Robot>& robots) {
     int count = 0;
 
-    for (Robot robot : robots) {
+    for (const Robot& robot : robots) {
         if (isUrgentRepair(robot)) {
             count++;
         }
@@ -190,7 +190,7 @@ int countUrgentRobots(std::vector<Robot> robots) {
     return count;
 }
 
-int findHighestPriorityRobotIndex(std::vector<Robot> robots) {
+int findHighestPriorityRobotIndex(const std::vector<Robot>& robots) {
     if (robots.size() == 0) {
         return -1;
     }
@@ -199,7 +199,8 @@ int findHighestPriorityRobotIndex(std::vector<Robot> robots) {
     int bestScore = calculatePriorityScore(robots[0]);
 
     for (int i = 1; i < robots.size(); i++) {
-        int score = calculatePriorityScore(robots[i]);
+        const Robot& robot = robots[i];
+        int score = calculatePriorityScore(robot);
 
         if (score > bestScore) {
             bestScore = score;
@@ -210,12 +211,12 @@ int findHighestPriorityRobotIndex(std::vector<Robot> robots) {
     return bestIndex;
 }
 
-void printRobotReport(std::vector<Robot> robots) {
+void printRobotReport(const std::vector<Robot>& robots) {
     std::cout << std::endl;
     std::cout << "===== Robot Report =====" << std::endl;
 
     for (int i = 0; i < robots.size(); i++) {
-        Robot robot = robots[i];
+        const Robot& robot = robots[i];
 
         std::string status;
 
